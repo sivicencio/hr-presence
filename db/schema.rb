@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_11_230406) do
+ActiveRecord::Schema.define(version: 2019_11_12_225618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 2019_11_11_230406) do
     t.string "jti", null: false
     t.datetime "exp", null: false
     t.index ["jti"], name: "index_jwt_blacklist_on_jti"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -36,4 +45,17 @@ ActiveRecord::Schema.define(version: 2019_11_11_230406) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "work_days", force: :cascade do |t|
+    t.date "day"
+    t.datetime "arrived_at"
+    t.datetime "left_at"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["day"], name: "index_work_days_on_day"
+    t.index ["user_id"], name: "index_work_days_on_user_id"
+  end
+
+  add_foreign_key "reports", "users"
+  add_foreign_key "work_days", "users"
 end
