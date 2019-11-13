@@ -5,7 +5,38 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.create(
-  email: 'user@example.org',
-  password: 'hola.123'
-)
+
+def create_work_days(user, date_range)
+  date_range.each do |date|
+    user.work_days.create(
+      day: date,
+      arrived_at: date + 9.hours + rand(60).minutes,
+      left_at: date + 17.hours + rand(60).minutes
+    )
+  end
+end
+
+def create_report(user, date_range)
+  user.create_report(
+    start_date: date_range.last(date_range.to_a.size / 2).first,
+    end_date: date_range.last
+  )
+end
+
+def create_users(users_count, date_range)
+  users_count.times.each do |i|
+    user = User.create(
+      email: "user-#{i + 1}@example.org",
+      password: 'hola.123'
+    )
+    create_work_days(user, date_range)
+  end
+end
+
+date_range = 1.month.ago.to_date .. 0.days.ago.to_date
+
+create_users(2, date_range) unless User.any?
+
+user = User.last
+
+create_report(user, date_range) unless user.report.present?
