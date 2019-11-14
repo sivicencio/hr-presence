@@ -5,7 +5,7 @@ RSpec.describe "Reports", type: :request do
     let(:user) { FactoryBot.create(:user) }
     let(:url) { '/users/report' }
     
-    context 'when user has signed in' do      
+    context 'when user has signed in' do
       before do  
         get url, headers: request_auth_headers(user)
       end

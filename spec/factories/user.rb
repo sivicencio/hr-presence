@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
     password { Faker::Internet.password }
+    name { Faker::Name.name }
 
     transient do
       date_range { 1.month.ago.to_date .. 0.days.ago.to_date }

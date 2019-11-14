@@ -27,16 +27,25 @@ def create_users(users_count, date_range)
   users_count.times.each do |i|
     user = User.create(
       email: "user-#{i + 1}@example.org",
-      password: 'hola.123'
+      password: 'hola.123',
+      name: "User #{i + 1}",
+      position: "New employee"
     )
     create_work_days(user, date_range)
   end
+
+  user = User.create(
+    email: "admin@example.org",
+    password: 'hola.123',
+    name: "Administrator",
+    role: "admin"
+  )
 end
 
 date_range = 1.month.ago.to_date .. 0.days.ago.to_date
 
 create_users(2, date_range) unless User.any?
 
-user = User.last
+user = User.employee.last
 
 create_report(user, date_range) unless user.report.present?
