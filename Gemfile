@@ -32,6 +32,8 @@ gem 'devise'
 
 gem 'devise-jwt'
 
+gem 'cancancan'
+
 gem 'validates_timeliness', '~> 5.0.0.alpha3'
 
 group :development, :test do
