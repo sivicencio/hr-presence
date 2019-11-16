@@ -8,7 +8,7 @@ It has two types of users:
 
 ## Sample API
 
-A sample API can be found [here](http://sivicencio.com).
+A sample API can be found [here](https://hr-presence.herokuapp.com/).
 
 Sample data includes:
 - 2 employees: both with days worked for a period of 1 month
